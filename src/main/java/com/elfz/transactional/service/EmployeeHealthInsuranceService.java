@@ -11,7 +11,11 @@ public class EmployeeHealthInsuranceService {
 
   private final EmployeeHealthInsuranceRepository employeeHealthInsuranceRepository;
 
-  public void registerEmployeeHealthInsurance(final EmployeeHealthInsurance employeeHealthInsurance) {
+  public void registerEmployeeHealthInsurance(final EmployeeHealthInsurance employeeHealthInsurance)
+      throws InvalidInsuranceAmountException {
+    if(employeeHealthInsurance.getCoverageAmount() < 0){
+      throw new InvalidInsuranceAmountException("Coverage Amount Should not be negative");
+    }
     employeeHealthInsuranceRepository.save(employeeHealthInsurance);
   }
 }
